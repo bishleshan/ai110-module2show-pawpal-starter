@@ -1,15 +1,45 @@
 classDiagram
-    %% Replace the placeholders below with your actual classes, attributes, methods, and relationships.
-    %% Keep this file updated so it matches your final implementation.
+    %% PawPal+ UML Class Diagram
+    %% Reflects the final implementation in pawpal_system.py
 
-    class ClassName {
-        +type attribute
-        +method() returnType
+    class Task {
+        +str description
+        +str time
+        +str frequency
+        +date due_date
+        +bool completed
+        +mark_complete() Task
+        +__repr__() str
     }
 
-    class AnotherClass {
-        +type attribute
-        +method() returnType
+    class Pet {
+        +str name
+        +str species
+        +list tasks
+        +add_task(task: Task) None
+        +remove_task(task: Task) None
+        +get_pending_tasks() list
+        +__repr__() str
     }
 
-    ClassName --> AnotherClass : relationship
+    class Owner {
+        +str name
+        +list pets
+        +add_pet(pet: Pet) None
+        +remove_pet(pet: Pet) None
+        +get_all_tasks() list
+        +__repr__() str
+    }
+
+    class Scheduler {
+        +Owner owner
+        +get_all_tasks() list
+        +sort_by_time() list
+        +filter_tasks(pet_name, completed) list
+        +detect_conflicts() list
+        +mark_task_complete(pet: Pet, task: Task) None
+    }
+
+    Pet "1" --> "many" Task : contains
+    Owner "1" --> "many" Pet : manages
+    Scheduler "1" --> "1" Owner : references
